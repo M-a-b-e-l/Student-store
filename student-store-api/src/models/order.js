@@ -34,12 +34,19 @@ const deleteOrder = async (order_id) => {
     return prisma.order.delete({where: {order_id: parseInt(order_id)}});
 };
 
-
+//Get order and its order items 
+const getOrderAndOrderItems = async (order_id) => {
+    return prisma.order.findUnique({
+        where: {order_id: parseInt(order_id)},
+        include: {order_items: true}
+    });
+};
 
 module.exports = { 
     getAllOrders, 
     getOrderById,
     createOrder,
     updateOrder,
-    deleteOrder
+    deleteOrder, 
+    getOrderAndOrderItems
 };

@@ -67,6 +67,21 @@ const deleteOrder = async (req, res) => {
 };
 
 
+//get order and its order items
+const getOrderAndOrderItems = async (req, res) => {
+    try {
+        const order = await orderModel.getOrderAndOrderItems(req.params.id);
+        if(order) {
+            res.status(200).json(order);
+        } else {
+            res.status(404).json({ error: "Order not found"});
+        }
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+
 //Export the functions created above 
 module.exports = {
     getAllOrders,
@@ -74,4 +89,5 @@ module.exports = {
     createOrder,
     updateOrder,
     deleteOrder,
+    getOrderAndOrderItems
 }

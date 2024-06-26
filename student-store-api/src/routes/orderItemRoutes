@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const orderController = require("../controllers/orderItemController");
+
+router.get("/orderItem", orderController.getOrderAndOrderItems);
+
+router.post("/orderItem", orderItemController.createOrderAndOrderItems);
+
+
+module.exports = router;
