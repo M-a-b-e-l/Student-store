@@ -6,16 +6,19 @@ const orderController = require("../controllers/orderController");
 router.get("/", orderController.getAllOrders);
 
 //Get product by ID
-router.get("/:id", orderController.getOrderById);
+router.get("/:order_id", orderController.getOrderById);
 
 //Add a new product
 router.post("/", orderController.createOrder);
 
 //Update a product
-router.put("/:id", orderController.updateOrder);
+router.put("/:order_id", orderController.updateOrder);
 
 //Delete a product
-router.delete("/:id", orderController.deleteOrder);
+router.delete("/:order_id", orderController.deleteOrder);
 
+router.post("/:order_id/items", orderController.addItemToOrder);
+
+router.get("/:order_id/total", orderController.calculateOrderTotal);
 
 module.exports = router;

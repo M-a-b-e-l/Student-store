@@ -9,6 +9,7 @@ const morgan = require("morgan");
 //import the modelroutes
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const orderItemRoutes = require('./routes/orderItemRoutes');
 
 //middleware
 app.use(express.json()); //Allows for the use of JSON data
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 //use the product routes
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/orderItems', orderItemRoutes);
 
 app.listen(3000, () => {
     console.log(`Server running on port http://localhost:${port}`)

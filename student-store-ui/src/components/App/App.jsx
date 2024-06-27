@@ -22,6 +22,7 @@ function App() {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [error, setError] = useState(null);
   const [order, setOrder] = useState(null);
+  const baseUrl = "localhost:3000";
 
   // Toggles sidebar
   const toggleSidebar = () => setSidebarOpen((isOpen) => !isOpen);
@@ -36,9 +37,44 @@ function App() {
     setSearchInputValue(event.target.value);
   };
 
+    // Fetch products on mount
+    useEffect(() => {
+      const fetchProducts = async () => {
+        setIsFetching(true);
+        try {
+          const response = await axios.get("http://localhost:3000/products");
+          setProducts(response.data);
+        } catch (err) {
+          setError(err);
+        } finally {
+          setIsFetching(false);
+        }
+      };
+      fetchProducts();
+    }, []);
+  
+    // Function to update a product
+    const updateProduct = async (productId, prodData) => {
+      try {
+        const response = await axios.put(`http://localhost:3000/products/${productId}`, prodData);
+        console.log("Product updated:", response.data);
+      } catch (err) {
+        setError(err);
+      }
+    };
+  
+    // Function to create a new product
+    const createProduct = async (prodData) => {
+      try {
+        const response = await axios.post("http://localhost:3000/products", prodData);
+        console.log("Product created:", response.data);
+      } catch (err) {
+        setError(err);
+      }
+    };
+
   const handleOnCheckout = async () => {
   }
-
 
   return (
     <div className="App">

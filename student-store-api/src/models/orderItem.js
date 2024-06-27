@@ -16,21 +16,29 @@ const getOrderItemById = (order_item_id) =>{
 };
 
 //Create a new order 
-// const createOrderItem = (prodData) => {
-//     return prisma.order_item.create({
-//         prodData:  {
-//             quantity,
-//             price, 
-//             order: {connect: {orderId: order_id}},
-//             product: {connect: {id: productId}}
-//         }
-//     });
+const createOrderItem = (data) => {
+    // const {orderId, productId, quantity, price} = data;
 
-// };
+    return prisma.order_item.create({
+        data: {
+            order_id: data.order_id,
+            product_id: data.product_id,
+            quantity: data.quantity,
+            price: data.price
+        }
+
+        // data: {
+        //     order: {connect: {order_id: orderId}},
+        //     product: {connect: {id: productId}},
+        //     quantity,
+        //     price
+        // }
+    });
+};
 // console.log("create order item:", orderItem);
 
 module.exports = { 
     getAllOrderItems, 
     getOrderItemById,
-    // createOrderItem
+    createOrderItem
 };
