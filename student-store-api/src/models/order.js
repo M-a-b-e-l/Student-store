@@ -18,7 +18,23 @@ const getOrderById = (order_id) =>{
 
 //Create a new order 
 const createOrder = (prodData) => {
-    return prisma.order.create({data: prodData});
+    try {
+        console.log(prodData);
+        return prisma.order.create({
+            data: {
+                customer_id: prodData.customer_id,
+                total_price: prodData.total_price,
+                status: prodData.status,
+                order_items: {
+                    order_id: prodData.order_id,
+                    product_id: prodData.product_id,
+                    quantity: prodData.quantity,
+                    price: prodData.price
+                }
+            }});
+    } catch (error) {
+        throw new Error(`Error deleting order: ${error.message}`);
+    }
 };
 
 //Update an order

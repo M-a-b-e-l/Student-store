@@ -54,47 +54,49 @@ function App() {
     }, []);
 
   const handleOnCheckout = async () => {
-    // try {
-  
-    //   // Send the cart to the backend to process the order
-    //   const response = await axios.post(`${baseUrl}/orders`, {
-    //     userInfo: userInfo,
-    //     cart: cart,
-    //   });
-  
-    //   // Reset the cart and set the order
-    //   setCart({});
-    //   setOrder(response.data);
-
-    // }
-
+    
     try {
       //Setting isCheckingOut to true 
       setIsCheckingOut(true);
+      console.log('cart:', cart);
 
       //create an order with the cart items
-      // const response = await axios.post(`${baseUrl}/orders`,
-      //   {
-      //     cart: cart
-      //   });
-      //Not working
+      const orderItems = Object.keys(cart).map((productId) => ({
+        product_id: parseInt(productId),
+        quantity: parseInt(cart[productId]),
+        price: 5,
+      }));
 
-      setOrder(cart);
-      console.log(order);
+      const order = {
+        customer_id: parseInt(userInfo.name), 
+        total_price: 6, 
+        status: "processing", 
+        order_items: orderItems,
+      }
+
+      console.log("order is being processed ")
 
       //make a post request to the localhost:3000/orders
+      const response = await axios.post(`${baseUrl}/orders`, order);
 
+      // console.log(userInfo);
+
+      //reset the cart
+      setCart({});
+      setOrder(response.data);
 
       //handle success and error responses 
-      setIsCheckingOut(false);
     } catch (error) {
       console.error('Error checking out:', error);
       setError(error);
+    } finally {
+      // console.log("Checkout sucessfull")
+      setIsCheckingOut(false);
     }
-    
-    //reset the cart
-    setCart({});
 
+    
+
+    
   }
 
   return (

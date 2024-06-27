@@ -16,24 +16,31 @@ const getOrderItemById = (order_item_id) =>{
 };
 
 //Create a new order 
-const createOrderItem = (data) => {
+const createOrderItem = async (data) => {
     // const {orderId, productId, quantity, price} = data;
 
-    return prisma.order_item.create({
-        data: {
-            order_id: data.order_id,
-            product_id: data.product_id,
-            quantity: data.quantity,
-            price: data.price
-        }
+    try {
+        // const createOrderItem = await prisma.order_item.create ({
+        //     data: {
+                
+        //     }
+        // })
 
-        // data: {
-        //     order: {connect: {order_id: orderId}},
-        //     product: {connect: {id: productId}},
-        //     quantity,
-        //     price
-        // }
-    });
+        return prisma.order_item.create({
+            data: {
+                order_id: data.order_id,
+                product_id: data.product_id,
+                quantity: data.quantity,
+                price: data.price
+            }
+        });
+    
+    } catch (error) {
+        console.error(`Error creating order item: ${error.message}`);
+
+        throw new Error(`Failed to create order item: ${error.message}`);
+    }
+    
 };
 // console.log("create order item:", orderItem);
 
