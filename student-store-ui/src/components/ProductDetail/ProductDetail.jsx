@@ -17,6 +17,21 @@ function ProductDetail({ addToCart, removeFromCart, getQuantityOfItemInCart }) {
     return <NotFound />;
   }
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      setIsFetching(true);
+      try {
+        const response = await axios.get(`http://localhost:3000/products/${productId}`);
+        setProduct(response.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsFetching(false);
+      }
+    };
+    fetchProduct();
+  }, []);
+
   if (isFetching || !product) {
     return <h1>Loading...</h1>;
   }

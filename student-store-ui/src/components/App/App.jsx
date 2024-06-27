@@ -22,7 +22,7 @@ function App() {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [error, setError] = useState(null);
   const [order, setOrder] = useState(null);
-  const baseUrl = "localhost:3000";
+  const baseUrl = "http://localhost:3000";
 
   // Toggles sidebar
   const toggleSidebar = () => setSidebarOpen((isOpen) => !isOpen);
@@ -42,7 +42,7 @@ function App() {
       const fetchProducts = async () => {
         setIsFetching(true);
         try {
-          const response = await axios.get("http://localhost:3000/products");
+          const response = await axios.get(`${baseUrl}/products`);
           setProducts(response.data);
         } catch (err) {
           setError(err);
@@ -52,28 +52,49 @@ function App() {
       };
       fetchProducts();
     }, []);
-  
-    // Function to update a product
-    const updateProduct = async (productId, prodData) => {
-      try {
-        const response = await axios.put(`http://localhost:3000/products/${productId}`, prodData);
-        console.log("Product updated:", response.data);
-      } catch (err) {
-        setError(err);
-      }
-    };
-  
-    // Function to create a new product
-    const createProduct = async (prodData) => {
-      try {
-        const response = await axios.post("http://localhost:3000/products", prodData);
-        console.log("Product created:", response.data);
-      } catch (err) {
-        setError(err);
-      }
-    };
 
   const handleOnCheckout = async () => {
+    // try {
+  
+    //   // Send the cart to the backend to process the order
+    //   const response = await axios.post(`${baseUrl}/orders`, {
+    //     userInfo: userInfo,
+    //     cart: cart,
+    //   });
+  
+    //   // Reset the cart and set the order
+    //   setCart({});
+    //   setOrder(response.data);
+
+    // }
+
+    try {
+      //Setting isCheckingOut to true 
+      setIsCheckingOut(true);
+
+      //create an order with the cart items
+      // const response = await axios.post(`${baseUrl}/orders`,
+      //   {
+      //     cart: cart
+      //   });
+      //Not working
+
+      setOrder(cart);
+      console.log(order);
+
+      //make a post request to the localhost:3000/orders
+
+
+      //handle success and error responses 
+      setIsCheckingOut(false);
+    } catch (error) {
+      console.error('Error checking out:', error);
+      setError(error);
+    }
+    
+    //reset the cart
+    setCart({});
+
   }
 
   return (
