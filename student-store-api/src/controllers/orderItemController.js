@@ -42,21 +42,6 @@ const createOrderItem = async (req, res) => {
     }
 };
 
-//Update orderItem
-// const updateOrderItem = async (req, res) => {
-//     try {
-//         const updatedOrderItem = await orderItemModel.updateOrderItem(req.params.id, req.body);
-
-//         if(updatedOrderItem) {
-//             res.status(200).json(updatedOrderItem);
-//         } else {
-//             res.status(404).json({ error: "Order item not found"});
-//         }
-//     } catch (error) {
-//         res.status(400).json({error: error.message});
-//     }
-// } 
-
 
 module.exports = {
     getAllOrderItems,

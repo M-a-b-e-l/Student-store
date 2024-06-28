@@ -15,7 +15,7 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All Categories");
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [userInfo, setUserInfo] = useState({ name: "", dorm_number: ""});
+  const [userInfo, setUserInfo] = useState({ name: "", id: ""});
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
   const [isFetching, setIsFetching] = useState(false);
@@ -54,41 +54,43 @@ function App() {
     }, []);
 
   const handleOnCheckout = async () => {
-    
+    //Setting isCheckingOut to true 
+    setIsCheckingOut(true);
+
     try {
-      //Setting isCheckingOut to true 
-      setIsCheckingOut(true);
-      console.log('cart:', cart);
-
-      //create an order with the cart items
-      const orderItems = Object.keys(cart).map((productId) => ({
-        product_id: parseInt(productId),
-        quantity: parseInt(cart[productId]),
-        price: 5,
-      }));
-
       const order = {
         customer_id: parseInt(userInfo.name), 
         total_price: 6, 
-        status: "processing", 
-        order_items: orderItems,
+        status: "completed", 
       }
 
       console.log("order is being processed ")
 
       //make a post request to the localhost:3000/orders
-      const response = await axios.post(`${baseUrl}/orders`, order);
+      let response = await axios.post(`${baseUrl}/orders`, order);
+      const orderid = response.data.order_id;
+      console.log(orderid);
 
-      // console.log(userInfo);
+          //create an order with the cart items
+      const orderItems = Object.entries(cart).map(key => ({
+        product_id: parseInt(key[0]),
+        quantity: key[1],
+      }));
+      console.log(orderItems);
+
+      await axios.post(`${baseUrl}/orders/${orderid}/items`, {items: orderItems});
+      // await axios.put(`${baseUrl}/orders/${orderid}`, {status: "completed"});
+      response = await axios.get(`${baseUrl}/orders/${orderid}`);
 
       //reset the cart
-      setCart({});
       setOrder(response.data);
+      setCart({});
+      setUserInfo({name: "", id: ""});
 
       //handle success and error responses 
     } catch (error) {
       console.error('Error checking out:', error);
-      setError(error);
+      setError(error.message);
     } finally {
       // console.log("Checkout sucessfull")
       setIsCheckingOut(false);

@@ -17,7 +17,7 @@ model product {
   id             Int      @id @default(autoincrement())
   name           String
   description    String
-  price          Int
+  price          Float
   image_url      String
   category       String
 
@@ -27,7 +27,7 @@ model product {
 model order {
   order_id      Int       @id @default(autoincrement())
   customer_id   Int
-  total_price   Int
+  total_price   Float
   status        String
   created_at    DateTime  @default(now())
 
@@ -39,7 +39,7 @@ model order_item {
   order_id        Int    
   order           order    @relation(fields: [order_id], references: [order_id], onDelete: Cascade)
   product_id      Int
-  product         product    @relation(fields: [product_id], references: [id])
+  product         product    @relation(fields: [product_id], references: [id], onDelete: Cascade)
   quantity        Int
-  price           Int 
+  price           Float 
 }

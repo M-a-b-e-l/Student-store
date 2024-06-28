@@ -25,12 +25,6 @@ const createOrder = (prodData) => {
                 customer_id: prodData.customer_id,
                 total_price: prodData.total_price,
                 status: prodData.status,
-                order_items: {
-                    order_id: prodData.order_id,
-                    product_id: prodData.product_id,
-                    quantity: prodData.quantity,
-                    price: prodData.price
-                }
             }});
     } catch (error) {
         throw new Error(`Error deleting order: ${error.message}`);
@@ -83,6 +77,8 @@ const deleteOrder = async (order_id) => {
 
 
 const addItemToOrder = async (order_id, itemData) => {
+    console.log("order_id",order_id)
+    console.log("itemData", itemData)
     return prisma.order_item.create({
         data: {
             order_id: parseInt(order_id), 
@@ -90,6 +86,7 @@ const addItemToOrder = async (order_id, itemData) => {
             quantity: itemData.quantity,
             price: itemData.price
         }
+        
     });
 };
 
@@ -109,6 +106,8 @@ const calculateOrderTotal = async (order_id) => {
     for(const item of order.order_items) {
         total_price += item.price * item.quantity;
     }
+
+    total_price = Math.round((total_price * 1.0875));
 
     return prisma.order.update({
         where: {order_id: parseInt(order_id)},

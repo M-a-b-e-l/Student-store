@@ -22,7 +22,7 @@ const CheckoutSuccess = ({ order, setOrder }) => {
           <i className="material-icons md-48">fact_check</i>
         </span>
       </h3>
-      {order?.purchase ? (
+      {order?.status === "completed" ? (
         <div className="card">
           <header className="card-head">
             <h4 className="card-title">Receipt</h4>
