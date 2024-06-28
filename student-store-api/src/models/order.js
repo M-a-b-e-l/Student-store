@@ -107,7 +107,7 @@ const calculateOrderTotal = async (order_id) => {
         total_price += item.price * item.quantity;
     }
 
-    total_price = Math.round((total_price * 1.0875));
+    total_price = total_price * 1.0875;
 
     return prisma.order.update({
         where: {order_id: parseInt(order_id)},

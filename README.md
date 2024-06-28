@@ -54,9 +54,24 @@ Deployed Application (optional): [Student Store Deployed Site](ADD_LINK_HERE)
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. (🚫 Remove this paragraph after adding walkthrough video)
 
-`ADD_EMBEDDED_CODE_HERE`
+<div>
+    <a href="https://www.loom.com/share/0fe382c46dbf498592794a55cfeb74cc">
+      <p>Student Store Part 1 - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/0fe382c46dbf498592794a55cfeb74cc">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/0fe382c46dbf498592794a55cfeb74cc-with-play.gif">
+    </a>
+  </div>
+
+  <div>
+    <a href="https://www.loom.com/share/127fa7a3a2d643429b481e9d9e935bb6">
+      <p>Student Store Part 2 - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/127fa7a3a2d643429b481e9d9e935bb6">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/127fa7a3a2d643429b481e9d9e935bb6-with-play.gif">
+    </a>
+  </div>
 
 ### Reflection
 
